@@ -42,7 +42,6 @@ function init() {
     const length_x = 70;
     const x_arrow = new THREE.ArrowHelper(direction_x.normalize(), from_x, length_x, 0x29b0da, 14, 14);
     scene.add(x_arrow);
-    //control_group.add(x_arrow);
 
     const from_y = new THREE.Vector3(0, 0, 0);
     const to_y = new THREE.Vector3(1, 0, 0);
@@ -50,7 +49,6 @@ function init() {
     const length_y = 70;
     const y_arrow = new THREE.ArrowHelper(direction_y.normalize(), from_y, length_y, 0xda2932, 14, 14);
     scene.add(y_arrow);
-    //control_group.add(y_arrow);
 
     const from_z = new THREE.Vector3(0, 0, 0);
     const to_z = new THREE.Vector3(0, 1, 0);
@@ -58,7 +56,6 @@ function init() {
     const length_z = 70;
     const z_arrow = new THREE.ArrowHelper(direction_z.normalize(), from_z, length_z, 0x9ceb43, 14, 14);
     scene.add(z_arrow);
-    //control_group.add(z_arrow);
 
     //制御ビットの軸
     const control_from_x = new THREE.Vector3(0, 240, 0);
@@ -121,8 +118,6 @@ function init() {
     
     //レンダリング
     function tick() {
-        //sphere.rotation.y += 0.002;
-        //sphere_group.rotation.y += 0.002;
         renderer.render(scene, camera); 
         requestAnimationFrame(tick);
     }
