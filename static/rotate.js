@@ -185,19 +185,6 @@ function init() {
         }
     }
 
-    //stゲート
-    document.getElementById('st').onclick = function stgate(){
-        if(flag < Math.PI/2){
-            target.setFromAxisAngle(Axis["y"], -Math.PI/50);
-            target.multiply(quaternion.clone());  
-            quaternion.copy(target);  
-            flag += Math.PI/50;
-            requestAnimationFrame(stgate);
-        }else{
-            flag = 0;
-        }
-    }
-
     //tゲート
     document.getElementById('t').onclick = function tgate(){
         if(flag < Math.PI/4){
@@ -206,19 +193,6 @@ function init() {
             quaternion.copy(target);  
             flag += Math.PI/48;
             requestAnimationFrame(tgate);
-        }else{
-            flag = 0;
-        }
-    }
-
-    //ttゲート
-    document.getElementById('tt').onclick = function ttgate(){
-        if(flag < Math.PI/4){
-            target.setFromAxisAngle(Axis["y"], -Math.PI/48);
-            target.multiply(quaternion.clone());  
-            quaternion.copy(target);  
-            flag += Math.PI/48;
-            requestAnimationFrame(ttgate);
         }else{
             flag = 0;
         }
