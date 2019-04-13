@@ -79,6 +79,7 @@ function init() {
     const control_z_arrow = new THREE.ArrowHelper(control_direction_z.normalize(), control_from_z, control_length_z, 0x9ceb43, 14, 14);
     control_group.add(control_z_arrow);
 
+    //制御ビットの状態ベクトル
     const from = new THREE.Vector3(0, 240, 0);
     const to = new THREE.Vector3(0, 360, 0);
     const direction = to.clone().sub(from);
