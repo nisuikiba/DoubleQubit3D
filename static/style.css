@@ -107,3 +107,9 @@ span{
     display:inline;
 }
 
+h1{
+    font-size: 16px;
+    color:rgb(226, 21, 89);
+    text-align: center;
+}
+
