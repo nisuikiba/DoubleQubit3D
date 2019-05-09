@@ -32,6 +32,10 @@ function init() {
     controls.enableDamping = true;
     controls.dampingFactor = 0.2;
 
+    //標的ビットのグループ
+    const target_group = new THREE.Group();
+    scene.add(target_group);
+
     //制御ビットのグループ
     const control_group = new THREE.Group();
     scene.add(control_group);
@@ -47,17 +51,17 @@ function init() {
     const to_x = new THREE.Vector3(0, 0, 1);
     const direction_x = to_x.clone().sub(target_from);
     const x_arrow = new THREE.ArrowHelper(direction_x.normalize(), target_from, length_xyz, 0x29b0da, 14, 14);
-    scene.add(x_arrow);
+    target_group.add(x_arrow);
 
     const to_y = new THREE.Vector3(1, 0, 0);
     const direction_y = to_y.clone().sub(target_from);
     const y_arrow = new THREE.ArrowHelper(direction_y.normalize(), target_from, length_xyz, 0xda2932, 14, 14);
-    scene.add(y_arrow);
+    target_group.add(y_arrow);
 
     const to_z = new THREE.Vector3(0, 1, 0);
     const direction_z = to_z.clone().sub(target_from);
     const z_arrow = new THREE.ArrowHelper(direction_z.normalize(), target_from, length_xyz, 0x9ceb43, 14, 14);
-    scene.add(z_arrow);
+    target_group.add(z_arrow);
 
     //制御ビットの軸
     const control_from = new THREE.Vector3(0, 240, 0);
@@ -123,7 +127,7 @@ function init() {
     const target_material = new THREE.MeshLambertMaterial({color: 0xffffff, transparent: true, opacity: 0.4});
     const target_sphere = new THREE.Mesh(sphere_geometry, target_material);
     target_sphere.position.set(0, 0, 0);
-    scene.add(target_sphere);
+    target_group.add(target_sphere);
 
     //制御ビットの球を作成
     const control_material = new THREE.MeshLambertMaterial({color: 0x000000, transparent: true, opacity: 0.2});
@@ -153,7 +157,7 @@ function init() {
     // 平行光源
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
     directionalLight.position.set(30, 30, 30);
-    scene.add(directionalLight);
+    target_group.add(directionalLight);
     
     //レンダリング
     function tick() {
@@ -223,9 +227,15 @@ function init() {
         control_group.add(purple_arrow);
     }
 
+    //標的ビットの回転
+    var target_quaternion = target_group.quaternion;
+    var target_target = new THREE.Quaternion();
+
+    //制御ビットの回転
     var control_quaternion = control_group.quaternion;
     var control_target = new THREE.Quaternion();
 
+    //制御ビットの重ね合わせを表すブロッホ級の回転
     var super_quaternion = super_group.quaternion;
     var super_target = new THREE.Quaternion();
 
@@ -254,6 +264,9 @@ function init() {
             (function ch(){
                 dispose_bec()
                 if(flag < Math.PI){
+                    target_target.setFromAxisAngle(Axis["y-z"], Math.PI/50);
+                    target_target.multiply(target_quaternion.clone());  
+                    target_quaternion.copy(target_target);  
                     control_target.setFromAxisAngle(Axis["y-z"], Math.PI/50);
                     control_target.multiply(control_quaternion.clone());  
                     control_quaternion.copy(control_target);  
